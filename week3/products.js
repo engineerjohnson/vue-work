@@ -77,10 +77,10 @@ const app = {
                 alert(err.data.message);
             })
         },
-        // createImage(){
-        //     this.tempProduct.imagesUrl = [];//確保是一個array
-        //     this.tempProduct.imagesUrl.push('');
-        // }
+        createImage(){
+            this.tempProduct.imagesUrl = [];//確保是一個array
+            this.tempProduct.imagesUrl.push('');
+        }
     },
     mounted(){
         productModal = new bootstrap.Modal(document.getElementById('productModal'));
