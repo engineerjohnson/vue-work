@@ -27,7 +27,6 @@ const app={
   .then(res=>{
     const {token,uid,expired} = res.data;
     document.cookie = ` deliciousFood=${token}; expires=${expired};`;
-    console.log(res);
     window.location = 'products.html';
   })
   .catch(err=>{
