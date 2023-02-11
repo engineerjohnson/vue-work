@@ -75,12 +75,13 @@
                             <th></th>
                             <th>品名</th>
                             <th style="width: 150px">數量/單位</th>
-                            <th>單價</th>
+                            <th  class="text-center">單價</th>
+                            <th class="text-end">單品總價</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <template v-if="">
-                            <tr v-for="" >
+                        <template v-if="cart.carts">
+                            <tr v-for="cartItem in cart.carts " :key="cartItem.id">
                                 <td>
                                     <button type="button" class="btn btn-outline-danger btn-sm"
                                         @click="">
@@ -89,34 +90,32 @@
                                     </button>
                                 </td>
                                 <td>
-                                    {{ }}
-                                    <div class="text-success" v-if="">
-                                        已套用優惠券
-                                    </div>
+                                    {{ cartItem.product.title }}
                                 </td>
                                 <td>
                                     <div class="input-group input-group-sm">
-                                        <div class="input-group mb-3">
-                                            <input class="form-control">
-                                            <span class="input-group-text" id="basic-addon2">{{  }}</span>
-                                        </div>
+                                            <select class="form-select" v-model="cartItem.qty" >
+                                                <option :value="i" v-for="i in 100" :key="i+'115'" >{{ i }}</option>
+                                            </select>
                                     </div>
                                 </td>
+                                <td  class="text-center">
+                                    {{ cartItem.product.price }}
+                                </td>
                                 <td class="text-end">
-                                    <small v-if="" class="text-success">折扣價：</small>
-                                    {{  }}
+                                    {{ cartItem.total }}
                                 </td>
                             </tr>
                         </template>
                     </tbody>
-                    <tfoot>
+                    <tfoot >
                         <tr>
                             <td colspan="3" class="text-end">總計</td>
-                            <td class="text-end">{{ }}</td>
+                            <td class="text-end">{{ cart.total }}</td>
                         </tr>
-                        <tr v-if="">
+                        <tr >
                             <td colspan="3" class="text-end text-success">折扣價</td>
-                            <td class="text-end text-success">{{ }}</td>
+                            <td class="text-end text-success">{{ cart.final_total }}</td>
                         </tr>
                     </tfoot>
                 </table>

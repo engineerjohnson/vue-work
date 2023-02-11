@@ -27,6 +27,7 @@ const productModal = {
                 this.modal.show()
             })
             .catch((err)=>{(alert(err))})
+            this.qty = 1;
         }
     }
 }
@@ -36,6 +37,7 @@ const app = createApp({
         return{
             products:[],
             productId : '',
+            cart:{},
         }
     },
     //方法
@@ -45,7 +47,6 @@ const app = createApp({
             .then((res)=>{
                 this.products = res.data.products;
             })
-            .catch((err)=>{(alert(err))})
         },
         openModal(id){
             this.productId = id;
@@ -60,13 +61,22 @@ const app = createApp({
                 alert(res.data.message);
                 console.log(res.data);
             this.$refs.modalProductHide.hide();
+            this.getCart();
             })
-        }
+        },
+        getCart(){
+            axios.get(`${apiUrl}/api/${apiPath}/cart`)
+            .then((res)=>{
+                console.log('cart:', res.data);
+                this.cart = res.data.data;
+            })
+        },
     },
     components:{productModal,},
     //生命週期
     mounted(){
-        this.getProduct()
+        this.getProduct();
+        this.getCart();
     },
 })
 app.mount('#app')
