@@ -132,7 +132,7 @@
                         class="form-control "
                         placeholder="請輸入 姓名" 
                         rules="required"
-                        :class="{'is-invalid' : errors.姓名}"
+                        :class="{'is-invalid' : errors['姓名']}"
                         ></v-field>
                         <error-message name="姓名" class="invalid-feedback"></error-message>
                     </div>
@@ -146,7 +146,7 @@
                         class="form-control "
                         placeholder="請輸入 Email" 
                         rules="email|required"
-                        :class="{'is-invalid' : errors.Email}"
+                        :class="{'is-invalid' : errors['Email']}"
                         ></v-field>
                         <error-message name="Email" class="invalid-feedback"></error-message>
                     </div>
@@ -160,7 +160,7 @@
                         class="form-control "
                         placeholder="請輸入 電話" 
                         :rules="isPhone"  
-                        :class="{'is-invalid' : errors.電話}"
+                        :class="{'is-invalid' : errors['電話']}"
                         ></v-field>
                         <error-message name="電話" class="invalid-feedback"></error-message>
                     </div>
@@ -174,7 +174,7 @@
                         class="form-control "
                         placeholder="請輸入 地址" 
                         rules="required"
-                        :class="{'is-invalid' : errors.地址}"
+                        :class="{'is-invalid' : errors['地址']}"
                         ></v-field>
                         <error-message name="地址" class="invalid-feedback"></error-message>
                     </div>
@@ -186,7 +186,7 @@
                         type="text"
                         class="form-control "
                         placeholder="請輸入 留言" 
-                        :class="{'is-invalid' : errors.留言}"
+                        :class="{'is-invalid' : errors['留言']}"
                         ></v-field>
                         <error-message name="留言" class="invalid-feedback"></error-message>
                     </div>
