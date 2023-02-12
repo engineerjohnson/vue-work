@@ -1,4 +1,4 @@
-import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';
+import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';//要有這行 不然傳到github會出錯
 const apiUrl = 'https://vue3-course-api.hexschool.io/v2'; 
 const apiPath = 'deliciousfood';
 Object.keys(VeeValidateRules).forEach(rule => {
@@ -51,7 +51,7 @@ const productModal = {
         }
     }
 }
-const app = Vue.createApp({
+const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://unpkg.com/vue@next"></script> 這網址會抓最新的vue cdn
     //資料
     data(){
         return{
