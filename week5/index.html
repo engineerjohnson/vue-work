@@ -51,11 +51,11 @@
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm">
-                                    <button type="button" class="btn btn-outline-secondary" @click="openModal(product.id)">
+                                    <button type="button" class="btn btn-outline-secondary" @click="openModal(product.id)" >
                                         <i class="fa-pulse" class="text-end" ></i>
                                         查看更多
                                     </button>
-                                    <button type="button" class="btn btn-outline-danger" @click="addToCart(product.id)">
+                                    <button type="button" class="btn btn-outline-danger" @click="addToCart(product.id)" :disabled="product.id === loadingId">
                                         <i class="f fa-pulse" ></i>
                                         加到購物車
                                     </button>
@@ -65,10 +65,10 @@
                     </tbody>
                 </table>
                 <!-- 購物車列表 -->
-                <div class="text-end">
-                    <button class="btn btn-outline-danger" type="button" @click="deleteCartAll">清空購物車</button>
-                </div>
-                <table class="table align-middle">
+                    <div class="text-end" >
+                    <button class="btn btn-outline-danger" type="button" @click="deleteCartAll" :disabled="!cart.length">清空購物車</button>
+                    </div>
+                    <table class="table align-middle" >
                     <thead>
                         <tr>
                             <th></th>
@@ -79,12 +79,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <template v-if="cart.carts">
-                            <tr v-for="cartItem in cart.carts " :key="cartItem.id">
+                        <template v-if="cart">
+                            <tr v-for="cartItem in cart " :key="cartItem.id">
                                 <td>
                                     <button type="button" class="btn btn-outline-danger btn-sm"
-                                        @click="deleteCart(cartItem)">
-                                        <i class=" fa-pulse" :disabled="cartItem.id === loadingId"></i>
+                                        @click="deleteCart(cartItem)" :disabled="cartItem.id === loadingId">
+                                        <i class=" fa-pulse" ></i>
                                         x
                                     </button>
                                 </td>
@@ -118,7 +118,7 @@
                             <td class="text-end text-success">{{ cart.final_total }}</td>
                         </tr>
                     </tfoot>
-                </table>
+                    </table>
             </div>
             <!-- 表單 -->
             <div class="my-5 row justify-content-center">

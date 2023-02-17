@@ -57,7 +57,7 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
         return{
             products:[],
             productId : '',
-            cart:{},
+            cart:[],
             loadingId:'',
             user:{
 
@@ -71,6 +71,7 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
             .then((res)=>{
                 this.products = res.data.products;
             })
+            .catch((err)=>{(alert(err))})
         },
         openModal(id){
             this.productId = id;
@@ -79,19 +80,23 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
             const data = {
                 product_id,
                 qty,
-            };
+            };            
+            this.loadingId = product_id;
             axios.post(`${apiUrl}/api/${apiPath}/cart`, { data })
             .then((res)=>{
                 alert(res.data.message);
             this.$refs.modalProductHide.hide();
             this.getCart();
+            this.loadingId = '';
             })
+            .catch((err)=>{(alert(err))})
         },
         getCart(){
             axios.get(`${apiUrl}/api/${apiPath}/cart`)
             .then((res)=>{
-                this.cart = res.data.data;
+                this.cart = res.data.data.carts;
             })
+            .catch((err)=>{(alert(err))})
         },
         upDataCart(cartItem){//帶入購物車的id及商品Id資料
             const data = {
@@ -101,35 +106,38 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
             this.loadingId = cartItem.id;
             axios.put(`${apiUrl}/api/${apiPath}/cart/${cartItem.id}`, { data })
             .then((res)=>{
-                console.log('更新購物車:',res.data)
             this.getCart();
             this.loadingId = '';
             })
+            .catch((err)=>{(alert(err))})
         },
         deleteCart(cartItem){//帶入購物車的id
             this.loadingId = cartItem.id;
-            console.log(cartItem.id)
             axios.delete(`${apiUrl}/api/${apiPath}/cart/${cartItem.id}`)
             .then((res)=>{
                 alert('已刪除此商品')
             this.getCart();
             this.loadingId = '';
             })
+            .catch((err)=>{(alert(err))})
         },
         deleteCartAll(){
+            if(this.cart.length>0){
             axios.delete(`${apiUrl}/api/${apiPath}/carts`)
             .then((res)=>{
                 alert('已清除購物車')
             this.getCart();
-            this.loadingId = '';
             })
+            .catch((err)=>{(alert(err))})
+            }else{
+                alert('目前購物車沒有品項')
+            }
         },
         onSubmit(){
-            console.log('onSubmit')
         },
         isPhone(value) {
             const phoneNumber = /^(09)[0-9]{8}$/
-            return phoneNumber.test(value) ? true : '需要正確的電話號碼'
+            return phoneNumber.test(value) ? true : '需為正確的手機號碼格式'
         },
     },
     components:{productModal,},
