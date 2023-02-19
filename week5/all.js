@@ -1,4 +1,4 @@
-import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';//要有這行 不然傳到github會出錯
+import { createApp } from 'https://unpkg.com/vue@3/dist/vue.esm-browser.js';//要有這行 不然傳到github會出錯const apiUrl = 'https://vue3-course-api.hexschool.io/v2'; 
 const apiUrl = 'https://vue3-course-api.hexschool.io/v2'; 
 const apiPath = 'deliciousfood';
 Object.keys(VeeValidateRules).forEach(rule => {
@@ -60,8 +60,8 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
             cart:[],
             loadingId:'',
             user:{
-
             },
+            isLoading: true,
         }
     },
     //方法
@@ -70,6 +70,7 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
             axios.get(`${apiUrl}/api/${apiPath}/products/all`)
             .then((res)=>{
                 this.products = res.data.products;
+                this.isLoading = false;
             })
             .catch((err)=>{(alert(err))})
         },
@@ -104,29 +105,37 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
                 qty : cartItem.qty,
             };
             this.loadingId = cartItem.id;
+            this.isLoading = true;
             axios.put(`${apiUrl}/api/${apiPath}/cart/${cartItem.id}`, { data })
             .then((res)=>{
             this.getCart();
+            this.isLoading = false;
             this.loadingId = '';
             })
             .catch((err)=>{(alert(err))})
         },
         deleteCart(cartItem){//帶入購物車的id
             this.loadingId = cartItem.id;
+            this.isLoading = true;
             axios.delete(`${apiUrl}/api/${apiPath}/cart/${cartItem.id}`)
             .then((res)=>{
                 alert('已刪除此商品')
             this.getCart();
+            this.isLoading = false;
             this.loadingId = '';
             })
             .catch((err)=>{(alert(err))})
         },
         deleteCartAll(){
             if(this.cart.length>0){
+            this.loadingId = this.cart
+            this.isLoading = true;
             axios.delete(`${apiUrl}/api/${apiPath}/carts`)
             .then((res)=>{
                 alert('已清除購物車')
             this.getCart();
+            this.loadingId = '';
+            this.isLoading = false;
             })
             .catch((err)=>{(alert(err))})
             }else{
@@ -140,7 +149,7 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
             return phoneNumber.test(value) ? true : '需為正確的手機號碼格式'
         },
     },
-    components:{productModal,},
+    components:{productModal,loading: VueLoading.Component},
     //生命週期
     mounted(){
         this.getProduct();
