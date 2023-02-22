@@ -95,7 +95,7 @@ const app = Vue.createApp({//要這樣寫 他會抓html的<script src="https://u
         getCart(){
             axios.get(`${apiUrl}/api/${apiPath}/cart`)
             .then((res)=>{
-                this.cart = res.data.data.carts;
+                this.cart = res.data.data;
             })
             .catch((err)=>{(alert(err))})
         },

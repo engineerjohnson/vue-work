@@ -87,8 +87,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <template v-if="cart">
-                            <tr v-for="cartItem in cart " :key="cartItem.id">
+                        <template v-if="cart.carts">
+                            <tr v-for="cartItem in cart.carts " :key="cartItem.id">
                                 <td>
                                     <button type="button" class="btn btn-outline-danger btn-sm"
                                         @click="deleteCart(cartItem)" :disabled="cartItem.id === loadingId">
@@ -118,11 +118,11 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="3" class="text-end">總計</td>
+                            <td colspan="4" class="text-end">總計</td>
                             <td class="text-end">{{ cart.total }}</td>
                         </tr>
                         <tr>
-                            <td colspan="3" class="text-end text-success">折扣價</td>
+                            <td colspan="4" class="text-end text-success">折扣價</td>
                             <td class="text-end text-success">{{ cart.final_total }}</td>
                         </tr>
                     </tfoot>
